@@ -6,10 +6,48 @@
 
 | Status | EPICs | IMPs |
 |--------|-------|------|
-| In Progress | 0 | 0 |
-| Planned | 0 | 0 |
+| In Progress | 1 | 0 |
+| Planned | 0 | 7 |
 | Deferred | 0 | 0 |
 | Cancelled | 0 | 0 |
 | Completed | 0 | 0 |
-| **Total** | **0** | **0** |
+| **Total** | **1** | **7** |
+
+## In Progress
+
+### [[AI-EPIC-001-m1-heartbeat-and-court|EPIC-001: M1 heartbeat and court]]
+> Nothing exists. VOTP-SPEC-0001 rev 0.7 is ratified and the project
+
+**IMPs:**
+- [[AI-IMP-001-umbrella-scaffold|IMP-001]] Umbrella scaffold — planned
+- [[AI-IMP-002-court-event-envelope|IMP-002]] Court event envelope — planned
+- [[AI-IMP-003-artifact-store|IMP-003]] Artifact store — planned
+- [[AI-IMP-004-lifecycle-boot-events|IMP-004]] Lifecycle boot events — planned
+- [[AI-IMP-005-projection-registry|IMP-005]] Projection registry — planned
+- [[AI-IMP-006-scheduler-shell|IMP-006]] Scheduler shell — planned
+- [[AI-IMP-007-recovery-oracle|IMP-007]] Recovery oracle — planned
+
+---
+
+## Size Watch
+
+Generated from tracked files; binary assets excluded. Review status
+comes from `.loc-reviews.tsv (in the ticket root)`: `review current` means the exact
+content blob is unchanged; `review stale` shows LOC drift and the latest
+Git edit date so a second review can be judged.
+
+### > 600 LOC
+
+- RAG/scripts/carrier.py (1060 LOC)
+- RAG/scripts/generate-index.sh (661 LOC)
+
+### > 300 LOC
+
+- RAG/scripts/carrier-receiver.py (589 LOC)
+- RAG/SPEC-0001.md (418 LOC)
+- RAG/archive/voice-pipeline-spec.md (392 LOC)
+- RAG/scripts/codex-memory.py (338 LOC)
+- RAG/templates/PROTOCOL-TEMPLATE.md (321 LOC)
+
+---
 

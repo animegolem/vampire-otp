@@ -34,8 +34,10 @@ trap 'rm -f "$EPICS_IN_PROGRESS" "$EPICS_PLANNED" "$EPICS_DEFERRED" "$EPICS_CANC
 normalize_frontmatter() {
   local file="$1"
   local hits
+  # grep exits 1 on no match; under set -e/pipefail a clean file must
+  # not kill the generator (found live cutting the first M1 epic).
   hits=$(grep -oE '^(kanban-status|close_date|created_date):' "$file" 2>/dev/null \
-    | sed 's/:$//' | sort -u | paste -sd, -)
+    | sed 's/:$//' | sort -u | paste -sd, - || true)
   if [[ -n "$hits" ]]; then
     local tmp="${file}.tmp"
     sed -e 's/^kanban-status:/kanban_status:/' \
