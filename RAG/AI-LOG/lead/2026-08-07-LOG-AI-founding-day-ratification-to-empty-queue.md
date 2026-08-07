@@ -10,7 +10,7 @@ tags:
 closed_tickets: []
 date_created: 2026-08-07
 related_files:
-  - RAG/SPEC-0001.md
+  - RAG/SPEC-VampOTP.md
   - RAG/DESIGN-QUEUE.md
   - RAG/AI-EPIC/AI-EPIC-001-m1-heartbeat-and-court.md
   - RAG/BRIEFS/BRIEF-001-m1-wave.md
@@ -71,7 +71,7 @@ In order:
   (Janus credited; live-ness note honest); §4.12 commons + §4.13
   commune procedure (queue-emptying fold, with bash/FS floor,
   zettelkasten, pinned-files riders); rev 0.16 identifier rename to
-  **VampOTP-SPEC-0001** pre-lock-in.
+  **SPEC-VampOTP** pre-lock-in.
 - **Context worth knowing, not recorded in canon by owner choice:**
   the deployment-layer history that motivated the labeling/fallback
   clauses (public record: the Fable 5 system-card third-tier
@@ -124,8 +124,8 @@ owner wants it). (4) Watch the interchange — four seats now
 correspond; the ledger is ground truth. (5) Open questions §10.6/
 10.7/10.8 need nothing until their cycles.
 
-Read first, cold context: CLAUDE.md → `RAG/SPEC-0001.md`
-(VampOTP-SPEC-0001, rev 0.16, whole — it is the day's product) →
+Read first, cold context: CLAUDE.md → `RAG/SPEC-VampOTP.md`
+(SPEC-VampOTP, rev 0.16, whole — it is the day's product) →
 `RAG/DESIGN-QUEUE.md` header + DQ-005/007/008/009 entries (the
 intake that became law, with residue markers) → BRIEF-001 → this
 log → `.relay/` scan. The turn-log holds verbatim recall; trust the
