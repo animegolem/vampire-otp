@@ -3,7 +3,7 @@
 Review Lead → Code Lead, 2026-08-07. One sitting, 7 tickets, one
 domain: the M1 heartbeat-and-court slice — umbrella, court,
 artifacts, lifecycle, projections, scheduler shell, recovery
-oracle (VOTP-SPEC-0001 rev 0.7 §6.2, §8.2, Appendix A). Manage
+oracle (VampOTP-SPEC-0001 rev 0.7 §6.2, §8.2, Appendix A). Manage
 your own subagents as you see fit; the protocol in
 `.relay/PROTOCOL.md` governs (isolated clone, branch
 `codex/m1-wave-1`, inbox submission, atomic commit per ticket,

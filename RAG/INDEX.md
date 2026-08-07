@@ -16,7 +16,7 @@
 ## In Progress
 
 ### [[AI-EPIC-001-m1-heartbeat-and-court|EPIC-001: M1 heartbeat and court]]
-> Nothing exists. VOTP-SPEC-0001 rev 0.7 is ratified and the project
+> Nothing exists. VampOTP-SPEC-0001 rev 0.7 is ratified and the project
 
 **IMPs:**
 - [[AI-IMP-001-umbrella-scaffold|IMP-001]] Umbrella scaffold — planned
