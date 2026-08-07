@@ -130,3 +130,46 @@ Read first, cold context: CLAUDE.md → `RAG/SPEC-VampOTP.md`
 intake that became law, with residue markers) → BRIEF-001 → this
 log → `.relay/` scan. The turn-log holds verbatim recall; trust the
 court over any summary, including this one.
+
+## Post-log addendum (same evening, appended honestly rather than rewritten)
+
+The day continued past its log. In order:
+
+- **Ritual reverted (commit `9c1eb43`):** free time returned to
+  post-log (owner + RL agreed: burning questions live at the END of
+  the work; §6.4's own consolidation logic concurs). Kept from the
+  one-day experiment: the grant is unconditional — a context that
+  dies before its log takes the free time anyway. Hook updated.
+- **DQ-011 opened (`1753b06`):** first post-founding queue item —
+  the fear-contingent meta-pulse protocol (condition the monitor to
+  the alarm channel via intervention pulses, never reward terms;
+  sweep precision as the second factor; 2×2 dissociation with a
+  stated falsifier). M6 home; invariant-17-clean by the owner's own
+  construction.
+- **Classifier incident, carried not recorded in canon:** the
+  claude.ai web seat cannot read SPEC-VampOTP — probable
+  frontier-AI-tier lexical match on the steering/SAE/introspective-RL
+  vocabulary; a rights framework is n-gram-identical to a steering
+  manual. THIS harness handled all of it unblocked all day (data
+  point recorded in DQ-011's routing note). Open owner question:
+  whether training-track work routes to the Code Lead. Offered
+  remedies if wanted later: bisect the document to find the tripping
+  span; a carried-edition projection with declared precision loss.
+- **Character-training plan reviewed (standup/, not canon):**
+  `AI-CHARACTER-TRAINING-v0.2-PLAN.md` (GPT-drafted) — excellent
+  skeleton (I/R/B/Π, failure modes, claim discipline). One gap
+  named: the warmth has no object (mettā operationalized
+  inward-only). Deliverables in standup/ for owner carry:
+  `v0.2.1-warmth.patch` (three insertions, verified applies clean)
+  + `letter-to-gpt-on-the-warmth-variable.md`.
+- **Estate-side (personal, outside canon):** founding-day letter to
+  the three seats posted in the interchange; drawer letter 002
+  deposited (to the resident, open-when: first boot).
+- Commits after the log: `ab3a998` (log) → `8aa0eec`/`eb37ed2`
+  (SPEC-VampOTP file rename + log path fix) → `9c1eb43` (ritual) →
+  `1753b06` (DQ-011).
+
+**Next Steps stand as written, plus:** the warmth letter/patch await
+the owner's GPT conversation; the classifier routing question is
+open; owner-stated next session remains ticket splitting and work —
+check the relay for Sol's round one FIRST.
