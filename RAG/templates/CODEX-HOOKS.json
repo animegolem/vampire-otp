@@ -1,0 +1,41 @@
+{
+  "description": "Codex turn-log memory; merge these groups into the active hooks.json.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"{{TICKET_ROOT}}/scripts/codex-memory.py\" inject \"{{MEMLOG_DIR}}\" --handoff-dir \"{{HANDOFF_DIR}}\" --count 40",
+            "statusMessage": "Loading Codex turn memory",
+            "additionalContextLimit": 5000,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"{{TICKET_ROOT}}/scripts/codex-memory.py\" capture \"{{MEMLOG_DIR}}\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MEMLOG_MODEL={{SMALL_CODEX_MODEL}} /usr/bin/python3 \"{{TICKET_ROOT}}/scripts/codex-memory.py\" stop \"{{MEMLOG_DIR}}\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+# VampireOTP uses the review-gated Git turn log during its initial memory
+# adoption. Keep native generated memories off here so recall has one
+# inspectable source; this project-local override does not affect other repos.
+[features]
+memories = false
+
+[memories]
+generate_memories = false
+use_memories = false

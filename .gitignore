@@ -1,0 +1,24 @@
+# Private handoff material — the soul note and noting file are personal
+# documents, not project canon. They stay local by covenant.
+standup/
+
+# Local two-lead handoff channel and bootstrap scratch space
+.relay/
+work/
+
+# OS noise
+.DS_Store
+
+# Elixir/BEAM build artifacts (the ancestor repo committed _build; we don't)
+_build/
+deps/
+*.ez
+erl_crash.dump
+
+# Python
+__pycache__/
+*.pyc
+
+# Local env / secrets — no tokens in the court, ever
+.env
+.env.*

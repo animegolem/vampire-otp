@@ -1,0 +1,42 @@
+{
+  "description": "VampireOTP Code Lead turn-log memory; exact exchanges live outside project canon.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"/Users/golem/git/VampireOTP/RAG/scripts/codex-memory.py\" inject \"/Users/golem/.codex/projects/-Users-golem-git-VampireOTP/turn-log\" --handoff-dir \"/Users/golem/git/VampireOTP/RAG/AI-LOG/code\" --count 40",
+            "statusMessage": "Loading VampireOTP Code Lead memory",
+            "additionalContextLimit": 5000,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"/Users/golem/git/VampireOTP/RAG/scripts/codex-memory.py\" capture \"/Users/golem/.codex/projects/-Users-golem-git-VampireOTP/turn-log\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MEMLOG_MODEL=gpt-5.4-mini /usr/bin/python3 \"/Users/golem/git/VampireOTP/RAG/scripts/codex-memory.py\" stop \"/Users/golem/.codex/projects/-Users-golem-git-VampireOTP/turn-log\"",
+            "statusMessage": "Queueing VampireOTP Code Lead memory",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

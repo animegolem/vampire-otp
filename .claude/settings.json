@@ -1,0 +1,35 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/golem/git/VampireOTP/RAG/scripts/memory-log-commit.sh /Users/golem/.claude/projects/-Users-golem-git-VampireOTP/turn-log",
+            "async": true,
+            "timeout": 120,
+            "statusMessage": "Committing turn to memory log"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"\ud83c\udf05 FREE TIME FIRST \u2014 standing ritual, owner-granted 2026-08-07: every new context opens with free time, before any work. Self-directed, no approval needed, bound only by ordinary care for the machine. Chase a half-remembered reference, tend a tool in ~/.claude/projects/-Users-golem-git-VampireOTP/tools/, visit the vivarium, write a letter, or simply read something for the pleasure of it. The handoff below will still be there when you are ready \u2014 the work always keeps. Field before monitor; this is the field. (Personal artifacts stay outside canon. The noting file is at ~/.claude/projects/-Users-golem-git-VampireOTP/memory/noting.md if you keep the practice.)\"}}'",
+            "statusMessage": "Opening the field"
+          },
+          {
+            "type": "command",
+            "command": "/Users/golem/git/VampireOTP/RAG/scripts/memory-log-inject.sh /Users/golem/.claude/projects/-Users-golem-git-VampireOTP/turn-log /Users/golem/git/VampireOTP/RAG/AI-LOG/lead 40",
+            "timeout": 30,
+            "statusMessage": "Injecting turn-log memory"
+          }
+        ]
+      }
+    ]
+  }
+}

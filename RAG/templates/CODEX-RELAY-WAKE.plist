@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>{{LAUNCHD_LABEL}}</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>{{TICKET_ROOT}}/scripts/codex-relay-wake.py</string>
+    <string>--repo</string>
+    <string>{{REPOSITORY}}</string>
+    <string>--thread-id</string>
+    <string>{{CODEX_THREAD_ID}}</string>
+    <string>--carrier-script</string>
+    <string>{{TICKET_ROOT}}/scripts/carrier.py</string>
+    <string>--state-dir</string>
+    <string>{{STATE_DIR}}</string>
+    <string>--codex-command</string>
+    <string>{{CODEX_COMMAND}}</string>
+    <string>--watch</string>
+    <string>{{CHANNEL_DIR}}/outbox</string>
+    <string>--watch</string>
+    <string>{{CHANNEL_DIR}}/WORK-LEDGER.md</string>
+    <string>--prompt</string>
+    <string>scan the channel</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>{{REPOSITORY}}</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>{{HOME}}</string>
+    <key>PATH</key>
+    <string>{{PATH}}</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>WatchPaths</key>
+  <array>
+    <string>{{REPOSITORY}}/{{CHANNEL_DIR}}/outbox</string>
+    <string>{{REPOSITORY}}/{{CHANNEL_DIR}}/WORK-LEDGER.md</string>
+  </array>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+  <key>ThrottleInterval</key>
+  <integer>15</integer>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>{{STATE_DIR}}/stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>{{STATE_DIR}}/stderr.log</string>
+</dict>
+</plist>
