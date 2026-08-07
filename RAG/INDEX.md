@@ -44,7 +44,7 @@ Git edit date so a second review can be judged.
 ### > 300 LOC
 
 - RAG/scripts/carrier-receiver.py (589 LOC)
-- RAG/SPEC-0001.md (511 LOC)
+- RAG/SPEC-0001.md (539 LOC)
 - RAG/archive/voice-pipeline-spec.md (392 LOC)
 - RAG/scripts/codex-memory.py (338 LOC)
 - RAG/templates/PROTOCOL-TEMPLATE.md (321 LOC)
