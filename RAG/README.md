@@ -3,7 +3,7 @@
 This directory is the file-based delivery substrate for the two-lead workflow.
 
 - `AI-EPIC/` — feature epics owned by the Review Lead.
-- `AI-IMP/` — implementation tickets cut from `SPEC-0001.md`.
+- `AI-IMP/` — implementation tickets cut from `SPEC-VampOTP.md`.
 - `AI-LOG/` — sitting handoff logs.
 - `BRIEFS/` — Review Lead assignment briefs.
 - `templates/` — mandatory ticket, brief, verdict, protocol, and instruction templates.
@@ -17,4 +17,4 @@ RAG/scripts/generate-index.sh
 RAG/scripts/validate-tickets.sh
 ```
 
-Application work remains blocked until `SPEC-0001.md` §7.2 is satisfied.
+Application work remains blocked until `SPEC-VampOTP.md` §7.2 is satisfied.

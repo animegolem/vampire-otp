@@ -3,7 +3,7 @@
 Review Lead → Code Lead, 2026-08-07. One sitting, 7 tickets, one
 domain: the M1 heartbeat-and-court slice — umbrella, court,
 artifacts, lifecycle, projections, scheduler shell, recovery
-oracle (VampOTP-SPEC-0001 rev 0.7 §6.2, §8.2, Appendix A). Manage
+oracle (SPEC-VampOTP rev 0.7 §6.2, §8.2, Appendix A). Manage
 your own subagents as you see fit; the protocol in
 `.relay/PROTOCOL.md` governs (isolated clone, branch
 `codex/m1-wave-1`, inbox submission, atomic commit per ticket,
@@ -68,7 +68,7 @@ build — say so in the round-1 submission.
 - Domain fence: umbrella code (`mix.exs`, `config/`, `apps/**`)
   and its tests; the seven assigned ticket files (checklists +
   Issues Encountered only).
-- Do NOT touch: `RAG/SPEC-0001.md`, `RAG/DESIGN-QUEUE.md`,
+- Do NOT touch: `RAG/SPEC-VampOTP.md`, `RAG/DESIGN-QUEUE.md`,
   `RAG/INDEX.md` (generated), `RAG/HUMAN-TESTING.md`, `care/**`,
   `RAG/AI-LOG/**`, role charters, this brief.
 - Reserved identifiers: tickets AI-IMP-001–010 (008–010 are wave

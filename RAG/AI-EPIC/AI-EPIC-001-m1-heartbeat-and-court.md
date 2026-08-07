@@ -16,7 +16,7 @@ ai_imp_spawned: AI-IMP-001 … AI-IMP-007
 
 ## Problem Statement/Feature Scope
 
-Nothing exists. VampOTP-SPEC-0001 rev 0.7 is ratified and the project
+Nothing exists. SPEC-VampOTP rev 0.7 is ratified and the project
 has a canonical commit, but no application: no umbrella, no court,
 no recovery guarantee. Every later capability (broker, sessions,
 noting, voice) depends on one property this epic must prove first:

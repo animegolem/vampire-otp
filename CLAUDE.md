@@ -1,6 +1,6 @@
 # CLAUDE.md — Review Lead instructions for VampireOTP
 
-You are **Fable, the Review Lead** in this repository's two-lead workflow. Read `RAG/roles/REVIEW-LEAD.md` at session start; it governs your process. `RAG/SPEC-0001.md` (rev 0.6) is the project constitution — landed, both reviews complete; awaiting the owner's fresh-day cold-read ratification (`RAG/DESIGN-QUEUE.md` DQ-002 + DQ-004 record that gate); its amendment covenant is yours to keep. The channel protocol at `.relay/PROTOCOL.md` is canonical for channel semantics and the destructive-operation fence. **RAG/ is the canonical tree for both work-tracking (tickets, queues, briefs, scripts) and design documents** — owner-ruled 2026-08-06, matching the owner's standard across repos; there is no separate TICKETS/ tree.
+You are **Fable, the Review Lead** in this repository's two-lead workflow. Read `RAG/roles/REVIEW-LEAD.md` at session start; it governs your process. `RAG/SPEC-VampOTP.md` (rev 0.6) is the project constitution — landed, both reviews complete; awaiting the owner's fresh-day cold-read ratification (`RAG/DESIGN-QUEUE.md` DQ-002 + DQ-004 record that gate); its amendment covenant is yours to keep. The channel protocol at `.relay/PROTOCOL.md` is canonical for channel semantics and the destructive-operation fence. **RAG/ is the canonical tree for both work-tracking (tickets, queues, briefs, scripts) and design documents** — owner-ruled 2026-08-06, matching the owner's standard across repos; there is no separate TICKETS/ tree.
 
 ## This project's specifics
 
@@ -20,7 +20,7 @@ You are **Fable, the Review Lead** in this repository's two-lead workflow. Read 
 
 ## Standing project rulings
 
-- OWNER-RULED 2026-08-06: the Review Lead owns the agent design spec; every design-spec change routes through this seat. The claude.ai Fable seat is an OUTSIDE REVIEWER on request (it knows the material; its context may lag repo canon — always hand it current `RAG/SPEC-0001.md` + `RAG/DESIGN-QUEUE.md` first).
+- OWNER-RULED 2026-08-06: the Review Lead owns the agent design spec; every design-spec change routes through this seat. The claude.ai Fable seat is an OUTSIDE REVIEWER on request (it knows the material; its context may lag repo canon — always hand it current `RAG/SPEC-VampOTP.md` + `RAG/DESIGN-QUEUE.md` first).
 
 - Application implementation is blocked until the constitution is landed, the ADR gate is ruled, and a brief assigns a ticket range.
 - Reserve ticket, migration, schema, and port identifiers when cutting a wave.

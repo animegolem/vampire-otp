@@ -1,6 +1,6 @@
 # Design queue
 
-The Review Lead owns this queue. Items leave only after an owner ruling is incorporated into `RAG/SPEC-0001.md` with a revision bump.
+The Review Lead owns this queue. Items leave only after an owner ruling is incorporated into `RAG/SPEC-VampOTP.md` with a revision bump.
 
 **STATUS 2026-08-07, end of founding day: DQ-001 through DQ-010 are all dispositioned** — ruled and folded (constitution at rev 0.15), docketed as honest open questions (§10.6–§10.8), or transferred to milestone cuts (M3 sheet/notes implementation; M4 stats event). The entries below are the record. New items number from DQ-011.
 
@@ -14,7 +14,7 @@ The Review Lead owns this queue. Items leave only after an owner ruling is incor
 
 ## DQ-002 — Constitution ratification (RE-RULED 2026-08-06)
 
-- **Owner ruling:** the estate SPEC-0001 documents are **unrelated projects** (GATE = the OCD research program; Hexis = an earlier conversation that didn't carry forward) — neither governs this repo. The Codex bootstrap draft IS the base: promoted from `work/` quarantine to repo root, later relocated by the owner to `RAG/SPEC-0001.md` under the RAG-canonical layout ruling.
+- **Owner ruling:** the estate SPEC-0001 documents are **unrelated projects** (GATE = the OCD research program; Hexis = an earlier conversation that didn't carry forward) — neither governs this repo. The Codex bootstrap draft IS the base: promoted from `work/` quarantine to repo root, later relocated by the owner to `RAG/SPEC-VampOTP.md` under the RAG-canonical layout ruling.
 - **Status (current, rev 0.6):** all owner-ruled gaps incorporated (rev 0.2 ADR reconciliation; rev 0.3/0.4 estate rulings — vow, pause, budget/request-tick, builder obligations, preamble, curriculum declined, threads closed); ADR contracts incorporated whole as Appendix A (normative), RAG ADR file decision-history only; Code Lead ratification review SETTLED and rev-0.6 recheck complete (external review folded; topics archived); **sole remaining fence: owner fresh-day cold-read ratification, with DQ-004's two ruling choices.** The `CLAUDE.md`/`AGENTS.md` §7.2 fence citation resolves against the landed file.
 - **Decision required (owner):** ratification of the reconciled + expanded text; that closes this item and unblocks the first canonical commit and M1 wave cut (§7.2 items 3–5).
 - **Constitution impact:** the document itself.

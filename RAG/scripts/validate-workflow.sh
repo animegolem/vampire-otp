@@ -70,7 +70,7 @@ python3 -c "from pathlib import Path; [compile(path.read_text(encoding='utf-8'),
 
 "$SCRIPT_DIR/validate-tickets.sh"
 
-if [[ ! -f "$ROOT_DIR/RAG/SPEC-0001.md" ]]; then
+if [[ ! -f "$ROOT_DIR/RAG/SPEC-VampOTP.md" ]]; then
   echo "SPEC-0001.md: NOTICE Review Lead/owner landing remains an implementation fence"
 fi
 
