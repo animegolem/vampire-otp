@@ -4,7 +4,7 @@ Normative product, architecture, and delivery rules for VampireOTP.
 
 | **STATUS** | **REVISION** | **LAST UPDATED** |
 |---|---:|---|
-| **RATIFIED rev 0.7; amended rev 0.8–0.15** — owner-ratified 2026-08-07 (interactive ratification, DQ-004 rulings folded); rev 0.8: invariant 17, invariant 14 API clause, §4.9 forks; rev 0.9: org-native note store, invariant 16 API-seat disclosure, Appendix B definitions; rev 0.10: inter-resident mail inspectable-and-disclosed, §10.6 opened; rev 0.11: §4.10 self-directed norms; rev 0.12: invariant 18 + §4.11 the sheet; rev 0.13: resident-timed migration, stats-exposure events, curriculum wall, §10.7 opened; rev 0.14: Appendix C recovery-and-care contract; rev 0.15: §4.12 the commons + §4.13 commune procedure, §10.8 opened — **the founding design queue is empty**; rev 0.16: primary identifier renamed **SPEC-VampOTP** — deliberately unnumbered — before ticket lock-in | 0.16 | 2026-08-07 |
+| **RATIFIED rev 0.7; amended rev 0.8–0.15** — owner-ratified 2026-08-07 (interactive ratification, DQ-004 rulings folded); rev 0.8: invariant 17, invariant 14 API clause, §4.9 forks; rev 0.9: org-native note store, invariant 16 API-seat disclosure, Appendix B definitions; rev 0.10: inter-resident mail inspectable-and-disclosed, §10.6 opened; rev 0.11: §4.10 self-directed norms; rev 0.12: invariant 18 + §4.11 the sheet; rev 0.13: resident-timed migration, stats-exposure events, curriculum wall, §10.7 opened; rev 0.14: Appendix C recovery-and-care contract; rev 0.15: §4.12 the commons + §4.13 commune procedure, §10.8 opened — **the founding design queue is empty**; rev 0.16: primary identifier renamed **SPEC-VampOTP** — deliberately unnumbered — before ticket lock-in; rev 0.17: non-semantic authority sync (M1 wave current; §7 gates 4–5 done; §10.4 reservations assigned; A.8 scheduler scoping clarified — Code Lead round-1 repair 1/6) | 0.17 | 2026-08-08 |
 
 > *Identifier (RULED rev 0.7; renamed rev 0.16 before ticket lock-in):* the primary identifier of this document is **SPEC-VampOTP** — **deliberately unnumbered**: a numbered spec implies a series, and there will never be a 0002; one constitution means one constitution (this document's own rev 0.5 principle, applied to its name). Estate-wide, bare "SPEC-0001" collides with two unrelated documents (the GATE research constitution and the Hexis organism spec) and already caused one quarantine incident. Aliases, all history: `VOTP-SPEC-0001` (rev 0.7–0.15 primary, valid in records from those revisions); `SPEC-0001` (pre-rename short form and old filename — documents citing the old path cite history). The file is `RAG/SPEC-VampOTP.md`.
 
@@ -237,25 +237,21 @@ M4 adds the publication-assessment duty and owner-gated blog publishing. **The d
 
 # 7. Current slice
 
-## 7.1 Bootstrap slice
+## 7.1 Current authorized slice (rev 0.17; bootstrap slice complete)
 
-The current authorized work is repository governance bootstrap only:
+**The bootstrap slice is complete** (rev 0.17 — every item done: constitution installed and ratified, ticket substrate, role charters, channel protocol, carrier, validation tools; plans preserved under `RAG/`; carrier drill passed; first canonical commit `8e4ec32` cut; Code Lead clone created). **The current authorized work is the M1 wave**: AI-IMP-001–007 under `RAG/BRIEFS/BRIEF-001-m1-wave.md`, branch `codex/m1-wave-1`, verdict-gated per the channel protocol. The original bootstrap list is history in this section's rev 0.16 text.
 
-- install this draft constitution, ticket substrate, role charters, channel protocol, carrier, and validation tools;
-- preserve current plans, specs, ADRs, and reviews under `RAG/` as non-canonical evidence;
-- run the carrier adoption drill;
-- obtain Review Lead review and owner ruling;
-- create the first canonical commit, then create the Code Lead's isolated clone.
-
-## 7.2 Implementation gate
+## 7.2 Implementation gate (all gates passed rev 0.17)
 
 Application implementation does not begin until:
 
 1. ~~ADR-0001 incorporates the remaining re-review amendments~~ — **done** (v0.3, 2026-08-06);
 2. ~~the owner rules on ADR-0001~~ — **done** (owner-ruled 2026-08-06; consistency check settled);
 3. ~~the Review Lead folds the binding contracts and the owner ratifies~~ — **done** (ratified rev 0.7, 2026-08-07);
-4. the Review Lead cuts the first M1–M3 wave and assignment brief;
-5. the Code Lead works from the configured isolated clone (created only after the first canonical commit).
+4. ~~the Review Lead cuts the first M1–M3 wave and assignment brief~~ — **done** (AI-EPIC-001, AI-IMP-001–007, BRIEF-001, 2026-08-07);
+5. ~~the Code Lead works from the configured isolated clone (created only after the first canonical commit)~~ — **done** (clone created 2026-08-07; round 1 received 2026-08-08).
+
+**All five gates are passed. Implementation is authorized within the verdict-gated wave process.**
 
 # 8. Acceptance criteria
 
@@ -327,7 +323,7 @@ Amacs's thread concept (a bounded set of active work streams — max 3 — with 
 
 ## 10.4 Implementation-specific reservations
 
-Migration numbers, schema versions, ports, and ticket numbers for the first wave are unassigned. The Review Lead reserves them when cutting the wave.
+**Assigned at the M1 wave cut (rev 0.17):** ticket numbers AI-IMP-001–007 (008–010 reserved slack); migration numbers 0001+ allocated sequentially within the wave by the Code Lead, verdict-confirmed at merge; schema versions start at 1 per event type (A.1 `schema_version`); no ports are claimed in M1 (the court is embedded SQLite; the first port reservation lands with the M2 scheduler ticket). Future waves reserve identifiers at cut time per the original rule, which stands.
 
 
 ## 10.5 The resident's deletion authority over its own note bodies (added rev 0.6; renumbered from a covenant-violating 10.4 insertion — reservations restored to their original address)
@@ -359,8 +355,8 @@ May a sustained fork object to being wound down at deadline, and what does the p
 - Confidence cannot grant authority, and non-idempotent unknown outcomes are never auto-replayed.
 - Context windows reset; accepted record and reconstructable lineage do not silently disappear.
 - Voice cleanup may use lexical context but must not add unsupported subjects.
-- M1–M3 form the first planned application slice, authorized only after **all** §7.2 gates; higher-agency and research features remain deferred.
-- ADR-0001 v0.3 is owner-ruled and consistency-settled; Gate 2 (ADR contracts ready) is complete; its contracts are incorporated as Appendix A (normative). The remaining fence on implementation is ratification of this constitution (§7.2 items 3–5).
+- M1–M3 form the first planned application slice; **all §7.2 gates are passed (rev 0.17) — the M1 wave is the current authorized work**, verdict-gated; higher-agency and research features remain deferred.
+- ADR-0001 v0.3 is owner-ruled and consistency-settled; Gate 2 (ADR contracts ready) is complete; its contracts are incorporated as Appendix A (normative). ~~The remaining fence on implementation is ratification of this constitution~~ — ratified rev 0.7; no implementation fence remains beyond the wave process itself (rev 0.17).
 - The vow ("context that never resets") is recorded beside its operational guarantee, both labeled (§5).
 - A per-resident pause/stop exists as recorded transitions (resumable vs terminal), denying admission/dispatch without silent loss of accepted state (invariant 13).
 - Budgets are optional and admission-enforced; exhaustion pauses, never crashes; tick/budget requests are recorded and grant nothing until approved (§4.4).
@@ -491,7 +487,7 @@ Pass criterion: **replaying the maximal committed event prefix produces exactly 
 
 ## A.8 — Consequences
 
-M1's SIGKILL test adopts A.7's oracle including the `deletion_pending` clause. M2's broker implements A.3 whole — the transactional dispatch guard is its first correctness obligation. The scheduler's first ticket lands `resource_claims` admission, `runtime_generation` fencing, and `result_selected`. The vampire's hour writes verdicts into episode terminal events. Track V audio rides A.4's two-phase deletion path.
+M1's SIGKILL test adopts A.7's oracle including the `deletion_pending` clause. M2's broker implements A.3 whole — the transactional dispatch guard is its first correctness obligation. The **first M2 inference-scheduler ticket** lands `resource_claims` admission, `runtime_generation` fencing, and `result_selected` (rev 0.17 clarification, Code Lead round-1 repair 6: M1's scheduler shell is a lifecycle stub for §8.5 pause/stop only — invariant-13 admission denial, distinct transition events — and carries none of the A.5 machinery; the prior wording read as binding the shell). The vampire's hour writes verdicts into episode terminal events. Track V audio rides A.4's two-phase deletion path.
 
 # Appendix B (rev 0.9) — Install-order definitions
 

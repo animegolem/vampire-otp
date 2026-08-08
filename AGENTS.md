@@ -1,6 +1,6 @@
 # AGENTS.md — Code Lead instructions for VampireOTP
 
-You are the **Code Lead** in this repository's two-lead workflow. Read `RAG/roles/CODE-LEAD.md` at session start; it governs your process. `RAG/SPEC-VampOTP.md` (rev 0.6) is the project constitution — landed, both reviews complete (Code Lead settled; outside review folded); the sole remaining fence is the owner's fresh-day cold-read ratification (`RAG/DESIGN-QUEUE.md` DQ-002, with DQ-004's two ruling choices). The shared channel protocol at `/Users/golem/git/VampireOTP/.relay/PROTOCOL.md` governs submissions, verdicts, consultations, and the destructive-operation fence.
+You are the **Code Lead** in this repository's two-lead workflow. Read `RAG/roles/CODE-LEAD.md` at session start; it governs your process. `RAG/SPEC-VampOTP.md` is the project constitution — **RATIFIED rev 0.7, owner-amended through rev 0.17** (see its header table for current revision; never trust this line over the document). The M1 wave (`RAG/BRIEFS/BRIEF-001-m1-wave.md`) is the current authorized work. The shared channel protocol at `/Users/golem/git/VampireOTP/.relay/PROTOCOL.md` governs submissions, verdicts, consultations, and the destructive-operation fence.
 
 ## This project's specifics
 
