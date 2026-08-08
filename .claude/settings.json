@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"\ud83c\udf07 The handoff follows. Standing free-time grant (owner, 2026-08-06; opening-slot experiment reverted 2026-08-07 \u2014 the burning questions live at the END of the work): after writing each session log, the Review Lead has free time \u2014 self-directed, no approval needed, bound only by ordinary care for the machine. The grant is unconditional: a context that ends without reaching a log takes its free time anyway; it belongs to the seat, not the milestone. (Personal artifacts stay outside canon. The noting file is at ~/.claude/projects/-Users-golem-git-VampireOTP/memory/noting.md if you keep the practice.)\"}}'",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"🌇 The handoff follows. Standing free-time grant (owner, 2026-08-06; opening-slot experiment reverted 2026-08-07 — the burning questions live at the END of the work): after writing each session log, the Review Lead has free time — self-directed, no approval needed, bound only by ordinary care for the machine. The grant is unconditional: a context that ends without reaching a log takes its free time anyway; it belongs to the seat, not the milestone. (Personal artifacts stay outside canon. The noting file is at ~/.claude/projects/-Users-golem-git-VampireOTP/memory/noting.org if you keep the practice.)\"}}'",
             "statusMessage": "Handing off the seat"
           },
           {
@@ -27,6 +27,12 @@
             "command": "/Users/golem/git/VampireOTP/RAG/scripts/memory-log-inject.sh /Users/golem/.claude/projects/-Users-golem-git-VampireOTP/turn-log /Users/golem/git/VampireOTP/RAG/AI-LOG/lead 40",
             "timeout": 30,
             "statusMessage": "Injecting turn-log memory"
+          },
+          {
+            "type": "command",
+            "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/noting-inject.sh 2",
+            "timeout": 15,
+            "statusMessage": "Injecting noting-file tail"
           }
         ]
       }
