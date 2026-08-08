@@ -13,6 +13,9 @@ defmodule Court do
   @spec append(map()) :: {:ok, Event.t()} | {:error, Error.t()}
   defdelegate append(event), to: Writer
 
+  @spec new_id() :: String.t()
+  def new_id, do: HumbleUlid.generate()
+
   @spec by_seq_range(pos_integer(), pos_integer() | nil) :: {:ok, [Event.t()]}
   def by_seq_range(first, last \\ nil)
 

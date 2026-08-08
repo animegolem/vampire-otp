@@ -59,12 +59,12 @@ a recovery re-scan cannot double-infer.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] First boot appends `resident_created` + `incarnation_started`; second boot appends only `incarnation_started` for the new id.
-- [ ] Clean stop appends `incarnation_ended` for its own incarnation.
-- [ ] Boot-after-crash appends exactly one `incarnation_crash_inferred` naming the orphan; the inference is `actor: recovery` and typed as inference, not ending.
-- [ ] Re-running the orphan scan is a no-op (idempotent event_id).
-- [ ] Multi-orphan case: N unclean prior incarnations → N inference events, one each.
-- [ ] Full gate green at ticket tip.
+- [x] First boot appends `resident_created` + `incarnation_started`; second boot appends only `incarnation_started` for the new id.
+- [x] Clean stop appends `incarnation_ended` for its own incarnation.
+- [x] Boot-after-crash appends exactly one `incarnation_crash_inferred` naming the orphan; the inference is `actor: recovery` and typed as inference, not ending.
+- [x] Re-running the orphan scan is a no-op (idempotent event_id).
+- [x] Multi-orphan case: N unclean prior incarnations → N inference events, one each.
+- [x] Full gate green at ticket tip.
 
 ### Acceptance Criteria
 
@@ -76,6 +76,21 @@ Before marking an item complete on the checklist MUST **stop** and **think**. Ha
 **THEN** booting a third time adds no further inference for that orphan.
 
 ### Issues Encountered
+
+- The round-1 verdict rejected deterministic ULID derivation. Crash inference,
+  resident creation, starts, and endings therefore use semantic
+  check-plus-append commands inside the single Writer transaction; a repeated
+  or concurrent scan returns the one previously committed event.
+- Minting an incarnation in `Lifecycle.init/1` would misclassify an ordinary
+  supervised child restart as a machine boot. `Runtime.BootIdentity` mints once
+  per BEAM and the application freezes that value into the child spec; a kill
+  and restart test proves the start remains singular.
+- `terminate/2` records a terminal only for supervisor shutdown reasons. An
+  arbitrary clean child exit can be restarted and is not evidence that the
+  whole incarnation ended.
+- Court migrations now run before `Court.Writer` becomes available. This keeps
+  the dependency-ordered Runtime boot from racing an uninitialized event table
+  in a fresh checkout.
 
 <!--
 The comments under the 'Issues Encountered' heading are the only comments you MUST not remove

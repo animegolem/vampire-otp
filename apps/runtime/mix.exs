@@ -11,11 +11,15 @@ defmodule Runtime.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.20",
       start_permanent: Mix.env() == :prod,
-      deps: []
+      deps: deps()
     ]
   end
 
   def application do
     [extra_applications: [:logger], mod: {Runtime.Application, []}]
+  end
+
+  defp deps do
+    [{:court, in_umbrella: true}]
   end
 end

@@ -6,5 +6,7 @@ defmodule Runtime.ApplicationTest do
              Enum.find(Application.started_applications(), fn {app, _, _} -> app == :runtime end)
 
     assert Process.alive?(Process.whereis(Runtime.Supervisor))
+    assert Process.alive?(Process.whereis(Runtime.Lifecycle))
+    assert %Runtime.Lifecycle.Identity{} = Runtime.Lifecycle.identity()
   end
 end

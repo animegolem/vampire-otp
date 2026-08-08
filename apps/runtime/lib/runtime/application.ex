@@ -5,6 +5,7 @@ defmodule Runtime.Application do
 
   @impl true
   def start(_type, _args) do
-    Supervisor.start_link([], strategy: :one_for_one, name: Runtime.Supervisor)
+    children = [{Runtime.Lifecycle, incarnation_id: Runtime.BootIdentity.current()}]
+    Supervisor.start_link(children, strategy: :one_for_one, name: Runtime.Supervisor)
   end
 end

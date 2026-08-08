@@ -33,8 +33,33 @@ defmodule Court.Writer do
   def complete_artifact_deletion(ref, attrs),
     do: GenServer.call(__MODULE__, {:complete_artifact_deletion, ref, attrs}, 30_000)
 
+  @doc false
+  def ensure_resident_created(attrs),
+    do: GenServer.call(__MODULE__, {:ensure_lifecycle, :resident_created, attrs}, 30_000)
+
+  @doc false
+  def ensure_incarnation_started(attrs),
+    do: GenServer.call(__MODULE__, {:ensure_lifecycle, :incarnation_started, attrs}, 30_000)
+
+  @doc false
+  def ensure_incarnation_ended(attrs),
+    do: GenServer.call(__MODULE__, {:ensure_lifecycle, :incarnation_ended, attrs}, 30_000)
+
+  @doc false
+  def infer_incarnation_crash(orphan_incarnation_id, attrs),
+    do:
+      GenServer.call(
+        __MODULE__,
+        {:infer_incarnation_crash, orphan_incarnation_id, attrs},
+        30_000
+      )
+
   @impl true
-  def init(:ok), do: {:ok, %{}}
+  def init(:ok) do
+    migrations_path = Application.app_dir(:court, "priv/repo/migrations")
+    Ecto.Migrator.run(Repo, migrations_path, :up, all: true, log: false)
+    {:ok, %{}}
+  end
 
   @impl true
   def handle_call({:append, attrs}, _from, state) do
@@ -47,6 +72,14 @@ defmodule Court.Writer do
 
   def handle_call({:complete_artifact_deletion, ref, attrs}, _from, state) do
     {:reply, do_artifact_event(:tombstone, ref, attrs), state}
+  end
+
+  def handle_call({:ensure_lifecycle, kind, attrs}, _from, state) do
+    {:reply, do_lifecycle_event(kind, attrs), state}
+  end
+
+  def handle_call({:infer_incarnation_crash, orphan_incarnation_id, attrs}, _from, state) do
+    {:reply, do_crash_inference(orphan_incarnation_id, attrs), state}
   end
 
   defp do_append(attrs) do
@@ -120,14 +153,152 @@ defmodule Court.Writer do
   end
 
   defp latest_artifact_event(event_type, ref) do
+    event_records(event_type)
+    |> Enum.filter(&(get_in(&1.payload, ["artifact_ref"]) == ref))
+    |> List.last()
+  end
+
+  defp do_lifecycle_event(kind, attrs) do
+    with {:ok, candidate} <- normalize(attrs),
+         :ok <- require_event_type(candidate, Atom.to_string(kind)) do
+      Repo.transact(fn -> append_lifecycle_event(kind, candidate) end)
+    end
+  rescue
+    error -> lifecycle_storage_error(error)
+  end
+
+  defp append_lifecycle_event(:resident_created, candidate) do
+    case event_records("resident_created") do
+      [] ->
+        append_normalized(candidate)
+
+      [existing] ->
+        {:ok, existing}
+
+      roots ->
+        resident_ids = roots |> Enum.map(& &1.resident_id) |> Enum.uniq()
+
+        if length(resident_ids) == 1 do
+          {:ok, List.first(roots)}
+        else
+          lifecycle_error("court contains multiple resident roots", %{resident_ids: resident_ids})
+        end
+    end
+  end
+
+  defp append_lifecycle_event(:incarnation_started, candidate) do
+    case event_for_incarnation("incarnation_started", candidate.incarnation_id) do
+      nil ->
+        with :ok <- require_resident_root(candidate.resident_id) do
+          append_normalized(candidate)
+        end
+
+      existing ->
+        {:ok, existing}
+    end
+  end
+
+  defp append_lifecycle_event(:incarnation_ended, candidate) do
+    start = event_for_incarnation("incarnation_started", candidate.incarnation_id)
+    ended = event_for_incarnation("incarnation_ended", candidate.incarnation_id)
+
+    cond do
+      ended ->
+        {:ok, ended}
+
+      is_nil(start) ->
+        lifecycle_error("incarnation ending has no committed start", %{
+          incarnation_id: candidate.incarnation_id
+        })
+
+      true ->
+        append_normalized(%{candidate | causation_id: start.event_id})
+    end
+  end
+
+  defp do_crash_inference(orphan_incarnation_id, attrs) do
+    with {:ok, candidate} <- normalize(attrs),
+         :ok <- require_event_type(candidate, "incarnation_crash_inferred") do
+      Repo.transact(fn -> append_crash_inference(orphan_incarnation_id, candidate) end)
+    end
+  rescue
+    error -> lifecycle_storage_error(error)
+  end
+
+  defp append_crash_inference(orphan_incarnation_id, candidate) do
+    start = event_for_incarnation("incarnation_started", orphan_incarnation_id)
+    ended = event_for_incarnation("incarnation_ended", orphan_incarnation_id)
+
+    inferred =
+      event_records("incarnation_crash_inferred")
+      |> Enum.find(&(get_in(&1.payload, ["orphan_incarnation_id"]) == orphan_incarnation_id))
+
+    cond do
+      inferred ->
+        {:ok, inferred}
+
+      is_nil(start) ->
+        lifecycle_error("crash inference has no committed incarnation start", %{
+          orphan_incarnation_id: orphan_incarnation_id
+        })
+
+      not is_nil(ended) or candidate.incarnation_id == orphan_incarnation_id ->
+        {:ok, :not_orphan}
+
+      true ->
+        candidate = %{
+          candidate
+          | causation_id: start.event_id,
+            payload: Map.put(candidate.payload, "orphan_incarnation_id", orphan_incarnation_id)
+        }
+
+        append_normalized(candidate)
+    end
+  end
+
+  defp event_records(event_type) do
     Repo.all(
       from record in EventRecord,
         where: record.event_type == ^event_type,
         order_by: [asc: record.event_seq]
     )
     |> Enum.map(&EventRecord.to_domain/1)
-    |> Enum.filter(&(get_in(&1.payload, ["artifact_ref"]) == ref))
-    |> List.last()
+  end
+
+  defp event_for_incarnation(event_type, incarnation_id),
+    do: Enum.find(event_records(event_type), &(&1.incarnation_id == incarnation_id))
+
+  defp require_resident_root(resident_id) do
+    case event_records("resident_created") do
+      [%{resident_id: ^resident_id} | _] ->
+        :ok
+
+      _ ->
+        lifecycle_error("incarnation does not belong to the resident root", %{
+          resident_id: resident_id
+        })
+    end
+  end
+
+  defp require_event_type(%Event{event_type: expected}, expected), do: :ok
+
+  defp require_event_type(%Event{event_type: actual}, expected),
+    do:
+      lifecycle_error("semantic command received the wrong event type", %{
+        expected: expected,
+        actual: actual
+      })
+
+  defp lifecycle_error(message, details),
+    do: {:error, %Error{code: :invalid_lifecycle_state, message: message, details: details}}
+
+  defp lifecycle_storage_error(error) do
+    {:error,
+     %Error{
+       code: :storage_error,
+       message: "lifecycle court transition failed",
+       details: %{exception: Exception.message(error)}
+     }}
   end
 
   defp normalize(attrs) do
