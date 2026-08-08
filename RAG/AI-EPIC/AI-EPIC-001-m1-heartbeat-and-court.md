@@ -67,20 +67,20 @@ DQ-008 ride the amendment cycle first).
 
 ### Functional Requirements
 
-- [ ] FR-1: Umbrella scaffold with the five §6.1 apps, supervision
+- [x] FR-1: Umbrella scaffold with the five §6.1 apps, supervision
       trees, and the full CI gate passing on the skeleton. (AI-IMP-001)
-- [ ] FR-2: Court schema + A.1 envelope, append-only enforced, one
+- [x] FR-2: Court schema + A.1 envelope, append-only enforced, one
       writer process, `actor` sub-role convention reserved. (AI-IMP-002)
-- [ ] FR-3: Artifact store: content-addressed publication with the
+- [x] FR-3: Artifact store: content-addressed publication with the
       durability sequence; two-phase deletion with recovery rules. (AI-IMP-003)
-- [ ] FR-4: Lifecycle boot events: `resident_id`/`incarnation_id`,
+- [x] FR-4: Lifecycle boot events: `resident_id`/`incarnation_id`,
       clean terminal events, `incarnation_crash_inferred` on orphan
       detection. (AI-IMP-004)
-- [ ] FR-5: Projection registry events + `logs.txt` rebuildable
+- [x] FR-5: Projection registry events + `logs.txt` rebuildable
       cursor projection. (AI-IMP-005)
-- [ ] FR-6: Scheduler shell with pause/stop recorded transitions and
+- [x] FR-6: Scheduler shell with pause/stop recorded transitions and
       admission denial while paused. (AI-IMP-006)
-- [ ] FR-7: A.7 recovery oracle: synthetic action aggregate,
+- [x] FR-7: A.7 recovery oracle: synthetic action aggregate,
       supervised-child kill test, whole-VM SIGKILL test. (AI-IMP-007)
 
 ### Non-Functional Requirements

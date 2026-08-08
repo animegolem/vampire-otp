@@ -46,8 +46,11 @@ Git edit date so a second review can be judged.
 - RAG/scripts/carrier-receiver.py (589 LOC)
 - RAG/SPEC-VampOTP.md (535 LOC)
 - RAG/archive/voice-pipeline-spec.md (392 LOC)
+- apps/court/lib/court/writer.ex (371 LOC)
+- apps/court/lib/court/artifacts.ex (346 LOC)
 - RAG/scripts/codex-memory.py (338 LOC)
 - RAG/templates/PROTOCOL-TEMPLATE.md (321 LOC)
+- apps/court/lib/court/event.ex (312 LOC)
 
 ---
 
