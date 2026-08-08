@@ -1,0 +1,6 @@
+[tools]
+# Pinned per the m1-wave-1 round-1 verdict (toolchain reservation):
+# resolved from `latest` at install time, 2026-08-08. Bumps are
+# deliberate commits, never drift.
+elixir = "1.20.3-otp-29"
+erlang = "29.0.5"
