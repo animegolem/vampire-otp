@@ -65,13 +65,13 @@ separately invokable step in tests.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] `publish/2`: staging file on destination filesystem, write → fsync → rename → dir fsync, returns `sha256:<hex>` ref; content round-trips.
-- [ ] Writer append rejects an event whose artifact_refs contain a non-`available` ref.
-- [ ] `resolve/1` returns the four ruled states per the A.4 derivation.
-- [ ] Two-phase deletion: `delete_requested/2` commits the request event (state → deletion_pending); `complete_deletion/1` removes bytes, fsyncs dir, commits `artifact_tombstoned`.
-- [ ] Recovery function covering all three A.4 recovery rows, test-driven per row.
-- [ ] Crash-cut tests: process killed between publication steps never yields a referencing event without durable bytes; killed between deletion phases always converges per A.4 on recovery.
-- [ ] Full gate green at ticket tip.
+- [x] `publish/2`: staging file on destination filesystem, write → fsync → rename → dir fsync, returns `sha256:<hex>` ref; content round-trips.
+- [x] Writer append rejects an event whose artifact_refs contain a non-`available` ref.
+- [x] `resolve/1` returns the four ruled states per the A.4 derivation.
+- [x] Two-phase deletion: `delete_requested/2` commits the request event (state → deletion_pending); `complete_deletion/1` removes bytes, fsyncs dir, commits `artifact_tombstoned`.
+- [x] Recovery function covering all three A.4 recovery rows, test-driven per row.
+- [x] Crash-cut tests: process killed between publication steps never yields a referencing event without durable bytes; killed between deletion phases always converges per A.4 on recovery.
+- [x] Full gate green at ticket tip.
 
 ### Acceptance Criteria
 
@@ -83,6 +83,19 @@ Before marking an item complete on the checklist MUST **stop** and **think**. Ha
 **THEN** an artifact with bytes absent and no authorizing chain resolves `missing` and surfaces integrity_fault.
 
 ### Issues Encountered
+
+- No migration 0002 was needed: requests and tombstones are ordinary schema-1
+  court events, as preferred by the ticket.
+- Deletion targets live in event payloads rather than `artifact_refs`; otherwise
+  the Writer's availability gate would correctly reject the tombstone that
+  completes a pending deletion. The tombstone instead carries the request's
+  `event_id` as `causation_id`.
+- Recovery and concurrent retries need semantic idempotency, so request and
+  tombstone check-plus-append operations execute as typed commands inside the
+  single Writer transaction rather than as query-then-append caller sequences.
+- Publication of an already-present final file re-verifies its digest and
+  re-syncs the directory. This repairs the legitimate recovery case where a
+  prior process died after rename but before directory fsync.
 
 <!--
 The comments under the 'Issues Encountered' heading are the only comments you MUST not remove

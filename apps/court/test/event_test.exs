@@ -33,6 +33,7 @@ defmodule Court.EventTest do
 
   test "round-trips every A.1 field as a plain domain value" do
     causation_id = HumbleUlid.generate()
+    {:ok, artifact_ref} = Court.Artifacts.publish("event round-trip artifact")
 
     attrs =
       event(%{
@@ -45,7 +46,7 @@ defmodule Court.EventTest do
         tick_id: "tick-1",
         turn_id: "turn-1",
         payload: %{nested: [%{"truth" => true}, nil]},
-        artifact_refs: ["sha256:abcd"]
+        artifact_refs: [artifact_ref]
       })
 
     assert {:ok, committed} = Court.append(attrs)
@@ -59,7 +60,7 @@ defmodule Court.EventTest do
     assert committed.tick_id == "tick-1"
     assert committed.turn_id == "turn-1"
     assert committed.payload == %{"nested" => [%{"truth" => true}, nil]}
-    assert committed.artifact_refs == ["sha256:abcd"]
+    assert committed.artifact_refs == [artifact_ref]
   end
 
   test "rejects malformed fields and producer attempts to assign court fields" do

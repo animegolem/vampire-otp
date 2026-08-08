@@ -10,6 +10,11 @@ defmodule Court.Error do
 
   @type code ::
           :event_id_conflict
+          | :artifact_io
+          | :artifact_unavailable
+          | :integrity_fault
+          | :invalid_artifact_ref
+          | :invalid_artifact_state
           | :invalid_event
           | :invalid_query
           | :not_found
