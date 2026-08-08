@@ -39,6 +39,12 @@
             "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/wake-inject.sh",
             "timeout": 20,
             "statusMessage": "Injecting wake note"
+          },
+          {
+            "type": "command",
+            "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/socket-publish.sh",
+            "timeout": 10,
+            "statusMessage": "Publishing session socket"
           }
         ]
       },
@@ -50,6 +56,12 @@
             "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/wake-inject.sh",
             "timeout": 20,
             "statusMessage": "Injecting wake note"
+          },
+          {
+            "type": "command",
+            "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/socket-publish.sh",
+            "timeout": 10,
+            "statusMessage": "Publishing session socket"
           }
         ]
       }
