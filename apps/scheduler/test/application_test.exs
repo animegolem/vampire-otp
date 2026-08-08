@@ -6,5 +6,6 @@ defmodule Scheduler.ApplicationTest do
              Enum.find(Application.started_applications(), fn {app, _, _} -> app == :scheduler end)
 
     assert Process.alive?(Process.whereis(Scheduler.Supervisor))
+    assert Process.alive?(Process.whereis(Scheduler.Admission))
   end
 end

@@ -58,12 +58,12 @@ resident.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] Admission API; grants recorded only in shell state (no job events yet), denials recorded as court events.
-- [ ] Pause commits a resumable transition event; subsequent admission denied + recorded.
-- [ ] Resume commits its event; admission restored.
-- [ ] Terminal stop commits a distinct event type; resume attempts fail and the refusal is recorded.
-- [ ] Boot-time state rebuild from court events; killed-and-restarted scheduler preserves paused/stopped state.
-- [ ] Full gate green at ticket tip.
+- [x] Admission API; grants recorded only in shell state (no job events yet), denials recorded as court events.
+- [x] Pause commits a resumable transition event; subsequent admission denied + recorded.
+- [x] Resume commits its event; admission restored.
+- [x] Terminal stop commits a distinct event type; resume attempts fail and the refusal is recorded.
+- [x] Boot-time state rebuild from court events; killed-and-restarted scheduler preserves paused/stopped state.
+- [x] Full gate green at ticket tip.
 
 ### Acceptance Criteria
 
@@ -82,3 +82,14 @@ This section is filled out post work as you fill out the checklists.
 You SHOULD document any issues encountered and resolved during the sprint.
 You MUST document any failed implementations, blockers or missing tests.
 -->
+
+- M1 admission grants are deliberately ephemeral references held only by
+  the caller. They are not persisted permits, jobs, claims, leases, or
+  dispatch authority; those concepts remain fenced to M2.
+- The scheduler cache is reconstructed from court transition events in
+  `event_seq` order. A transition is appended before the cache changes,
+  so process death cannot make the cache more authoritative than court.
+- The round-one event names were retained: `resident_paused`,
+  `resident_resumed`, `resident_stopped`, `admission_denied`, and
+  `lifecycle_transition_denied`. Invalid recording context is rejected
+  rather than inventing an unknown policy or resident.
