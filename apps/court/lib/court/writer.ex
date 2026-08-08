@@ -98,7 +98,7 @@ defmodule Court.Writer do
   end
 
   defp transact_append(candidate) do
-    Repo.transact(fn -> append_normalized(candidate) end)
+    transact(candidate, fn -> append_normalized(candidate) end)
   end
 
   defp append_normalized(candidate) do
@@ -112,7 +112,7 @@ defmodule Court.Writer do
 
   defp do_artifact_event(kind, ref, attrs) do
     with {:ok, candidate} <- normalize(attrs) do
-      Repo.transact(fn -> append_artifact_event(kind, ref, candidate) end)
+      transact(candidate, fn -> append_artifact_event(kind, ref, candidate) end)
     end
   rescue
     error ->
@@ -161,7 +161,7 @@ defmodule Court.Writer do
   defp do_lifecycle_event(kind, attrs) do
     with {:ok, candidate} <- normalize(attrs),
          :ok <- require_event_type(candidate, Atom.to_string(kind)) do
-      Repo.transact(fn -> append_lifecycle_event(kind, candidate) end)
+      transact(candidate, fn -> append_lifecycle_event(kind, candidate) end)
     end
   rescue
     error -> lifecycle_storage_error(error)
@@ -219,7 +219,7 @@ defmodule Court.Writer do
   defp do_crash_inference(orphan_incarnation_id, attrs) do
     with {:ok, candidate} <- normalize(attrs),
          :ok <- require_event_type(candidate, "incarnation_crash_inferred") do
-      Repo.transact(fn -> append_crash_inference(orphan_incarnation_id, candidate) end)
+      transact(candidate, fn -> append_crash_inference(orphan_incarnation_id, candidate) end)
     end
   rescue
     error -> lifecycle_storage_error(error)
@@ -317,6 +317,24 @@ defmodule Court.Writer do
       {:error, changeset} -> {:error, invalid_event(changeset_errors(changeset))}
     end
   end
+
+  defp transact(candidate, operation) do
+    result =
+      Repo.transact(fn ->
+        transaction_result = operation.()
+        maybe_hit_failpoint(:court_append_before_commit, candidate, transaction_result)
+        transaction_result
+      end)
+
+    maybe_hit_failpoint(:court_append_committed_before_ack, candidate, result)
+    result
+  end
+
+  defp maybe_hit_failpoint(phase, candidate, {:ok, %Event{}}) do
+    Court.Failpoint.hit(phase, %{event_id: candidate.event_id, event_type: candidate.event_type})
+  end
+
+  defp maybe_hit_failpoint(_phase, _candidate, _result), do: :ok
 
   defp compare_retry(candidate, committed) do
     candidate_fingerprint = Event.producer_fingerprint(candidate)

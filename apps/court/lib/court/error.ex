@@ -17,9 +17,11 @@ defmodule Court.Error do
           | :invalid_artifact_state
           | :invalid_event
           | :invalid_lifecycle_state
+          | :invalid_prefix
           | :invalid_query
           | :not_found
           | :storage_error
+          | :synthetic_disabled
 
   @type t :: %__MODULE__{code: code(), message: String.t(), details: map()}
 end

@@ -20,6 +20,8 @@ config :court, Court.Repo,
   stacktrace: true
 
 config :court, Court.Artifacts, root: artifact_root
+config :court, :failpoints_enabled, true
+config :court, :synthetic_actions_enabled, true
 config :runtime, Runtime.Projections.Logs, path: logs_path
 
 config :logger, level: :warning

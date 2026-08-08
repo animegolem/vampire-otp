@@ -88,6 +88,7 @@ defmodule Court.Artifacts do
          {:ok, %Resolution{} = before} <- resolve(ref),
          :ok <- require_deletion_pending(before),
          {:ok, path} <- storage_path(ref),
+         _ <- checkpoint.(:deletion_before_unlink, %{ref: ref, path: path}),
          :ok <- remove_bytes(path),
          _ <- checkpoint.(:bytes_deleted, %{ref: ref, path: path}),
          :ok <- sync_directory(Path.dirname(path)),

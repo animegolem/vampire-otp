@@ -67,12 +67,13 @@ publication phases, deletion phases, and mid-append.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] Synthetic action aggregate writing real envelope events, including artifact-bearing and dispatched-no-terminal cases; modules marked disposable-for-M2.
-- [ ] `Court.Replay.fold/1`: pure, deterministic derived state over any committed prefix; property: fold(prefix) invariant under re-fold.
-- [ ] Child-kill tests: Writer and projection consumers killed under load; no committed loss; cursor recovery clean (005's guarantee re-proven under this harness).
-- [ ] VM-kill harness: app as separate OS process, driven load, `kill -9` at parameterized cuts (mid-append, between artifact publication steps, between deletion phases).
-- [ ] Post-restart assertions: A.7 verbatim — exact canonical derived state, `outcome_unknown` represented, artifact refs resolve available/tombstoned/deletion_pending-with-request, nothing invented, crash inference present (004).
-- [ ] Full gate green at ticket tip; epic FR checklist updated; wave closes.
+- [x] Synthetic action aggregate writing real envelope events, including artifact-bearing and dispatched-no-terminal cases; modules marked disposable-for-M2.
+- [x] `Court.Replay.fold/1`: pure, deterministic derived state over any committed prefix; property: fold(prefix) invariant under re-fold.
+- [x] Child-kill tests: Writer and projection consumers killed under load; no committed loss; cursor recovery clean (005's guarantee re-proven under this harness).
+- [x] VM-kill harness: app as separate OS process, driven load, `kill -9` at parameterized cuts (mid-append, between artifact publication steps, between deletion phases).
+- [x] Post-restart assertions: A.7 verbatim — exact canonical derived state, `outcome_unknown` represented, artifact refs resolve available/tombstoned/deletion_pending-with-request, nothing invented, crash inference present (004).
+- [x] Full gate green at ticket tip; wave implementation closes.
+- [ ] Epic FR checklist updated by Review Lead at integration; the brief's file fence excludes the epic from Code Lead edits.
 
 ### Acceptance Criteria
 
@@ -93,3 +94,31 @@ This section is filled out post work as you fill out the checklists.
 You SHOULD document any issues encountered and resolved during the sprint.
 You MUST document any failed implementations, blockers or missing tests.
 -->
+
+- `Court.Replay` is a pure exact-prefix fold; the I/O-bearing
+  `Court.RecoveryOracle` separately checks bytes and reports the exact A.4
+  recovery action for every `deletion_pending` ref. Inspection never appends,
+  retries, or resolves an unknown action.
+- The synthetic aggregate is disabled unless test configuration explicitly
+  enables it. Every event identifies the fixture contract, and its moduledoc
+  requires deletion when M2's conformant broker lands.
+- Deterministic handshakes replaced timing guesses throughout. The normal
+  suite runs fourteen whole-VM cuts once each: both Writer transaction cuts,
+  four publication steps, publication-reference committed-before-ack, both
+  deletion-request transaction cuts, four deletion phases, and scheduler
+  pause committed-before-ack. Each child reports its nonce, named phase, and
+  actual BEAM PID before the parent issues `SIGKILL` and awaits Port exit.
+- An initial redundant projection recovery test made the existing and new
+  consumer-kill cases collectively exceed the Runtime supervisor's default
+  restart intensity. The duplicate was removed rather than weakening
+  production supervision; AI-IMP-005's two synchronized consumer-kill cases
+  remain in the full 007 harness and pass alongside the new Writer cuts.
+- The first VM harness used `System.unique_integer/1` in temp-root names. That
+  counter restarts with a new test BEAM, so an old interrupted harness could
+  be reopened and correctly produce several historical crash inferences.
+  Roots now include a cryptographically random nonce and are removed through
+  exact-path `on_exit` cleanup; fresh-run isolation is no longer accidental.
+- The epic checklist remains untouched: BRIEF-001 permits Code Lead edits to
+  the seven assigned ticket files but not the Review Lead-owned epic. Its FR
+  closure is called out explicitly for integration rather than silently
+  crossing that fence.
