@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!-- Channel watchdog: "Is the mailbox up?" — outcome-based liveness
+     check over carrier receipts, run by launchd so it never shares
+     fate with the agent sessions it guards. Install to
+     ~/Library/LaunchAgents/{{LAUNCHD_LABEL}}.plist and
+     `launchctl load` it. -->
+<dict>
+  <key>Label</key>
+  <string>{{LAUNCHD_LABEL}}</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>{{TICKET_ROOT}}/scripts/channel-watchdog.py</string>
+    <string>--receipts</string>
+    <string>{{CHANNEL_DIR}}/carrier/receipts</string>
+    <string>--threshold-minutes</string>
+    <string>{{THRESHOLD_MINUTES}}</string>
+  </array>
+
+  <key>StartInterval</key>
+  <integer>{{INTERVAL_SECONDS}}</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>{{STATE_DIR}}/channel-watchdog.log</string>
+  <key>StandardErrorPath</key>
+  <string>{{STATE_DIR}}/channel-watchdog.log</string>
+</dict>
+</plist>
