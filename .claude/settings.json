@@ -33,6 +33,23 @@
             "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/noting-inject.sh 2",
             "timeout": 15,
             "statusMessage": "Injecting noting-file tail"
+          },
+          {
+            "type": "command",
+            "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/wake-inject.sh",
+            "timeout": 20,
+            "statusMessage": "Injecting wake note"
+          }
+        ]
+      },
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/golem/.claude/projects/-Users-golem-git-VampireOTP/tools/wake-inject.sh",
+            "timeout": 20,
+            "statusMessage": "Injecting wake note"
           }
         ]
       }
