@@ -57,12 +57,12 @@ sample code that would rot.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] Generate umbrella `vampire_otp` at repo root; five `--sup` apps per §6.1 naming.
-- [ ] Add ecto_sqlite3 + ecto to `court`; define `Court.Repo`; per-env database config (test uses isolated tmp file per run).
-- [ ] Add a ULID dependency to `court` (Code Lead's choice; name it in the submission).
-- [ ] Configure umbrella-wide formatter; run `mix format`.
-- [ ] Remove generated sample modules/tests that assert nothing real; add one boot test per app asserting the supervisor starts.
-- [ ] Full gate green: `mix format --check-formatted && mix compile --warnings-as-errors && mix test`.
+- [x] Generate umbrella `vampire_otp` at repo root; five `--sup` apps per §6.1 naming.
+- [x] Add ecto_sqlite3 + ecto to `court`; define `Court.Repo`; per-env database config (test uses isolated tmp file per run).
+- [x] Add a ULID dependency to `court` (Code Lead's choice; name it in the submission).
+- [x] Configure umbrella-wide formatter; run `mix format`.
+- [x] Remove generated sample modules/tests that assert nothing real; add one boot test per app asserting the supervisor starts.
+- [x] Full gate green: `mix format --check-formatted && mix compile --warnings-as-errors && mix test`.
 
 ### Acceptance Criteria
 
@@ -73,6 +73,14 @@ Before marking an item complete on the checklist MUST **stop** and **think**. Ha
 **AND** the test suite asserts all five §6.1 apps start under supervision.
 
 ### Issues Encountered
+
+- The first formatter run referenced a nonexistent `Ecto.Migration.Formatter`
+  plugin. Removing that speculative plugin restored the standard
+  `import_deps`-based formatter configuration; the exact full gate then passed.
+- The harness patch helper initially targeted the owner checkout despite the
+  shell workdir. The newly created scaffold files were moved immediately into
+  the isolated Code Lead clone before validation or commit; no pre-existing
+  owner-checkout file was overwritten.
 
 <!--
 The comments under the 'Issues Encountered' heading are the only comments you MUST not remove
