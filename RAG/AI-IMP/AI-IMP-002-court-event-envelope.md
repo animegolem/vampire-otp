@@ -67,13 +67,13 @@ resident/<label> | broker | worker/<id> | recovery`.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] Migration 0001: events table, every A.1 envelope column, unique index on event_id, triggers raising on UPDATE/DELETE.
-- [ ] `Court.Event` changeset validates event_type, schema_version ≥ 1, actor format (reserved convention documented), ULID event_id.
-- [ ] `Court.Writer` GenServer: all appends serialized; event_seq court-assigned; recorded_at stamped at commit; duplicate event_id returns the committed row (idempotent re-scan).
-- [ ] `Court.append/1` + typed read API (`by_seq_range`, `by_event_id`, `by_type`); no update/delete functions exported.
-- [ ] Concurrency test: N processes × M appends → N×M rows, gapless monotonic seq, no duplicates.
-- [ ] Append-only test: raw SQL UPDATE and DELETE against a committed row both raise from the trigger.
-- [ ] Full gate green at ticket tip.
+- [x] Migration 0001: events table, every A.1 envelope column, unique index on event_id, triggers raising on UPDATE/DELETE.
+- [x] `Court.Event` changeset validates event_type, schema_version ≥ 1, actor format (reserved convention documented), ULID event_id.
+- [x] `Court.Writer` GenServer: all appends serialized; event_seq court-assigned; recorded_at stamped at commit; duplicate event_id returns the committed row (idempotent re-scan).
+- [x] `Court.append/1` + typed read API (`by_seq_range`, `by_event_id`, `by_type`); no update/delete functions exported.
+- [x] Concurrency test: N processes × M appends → N×M rows, gapless monotonic seq, no duplicates.
+- [x] Append-only test: raw SQL UPDATE and DELETE against a committed row both raise from the trigger.
+- [x] Full gate green at ticket tip.
 
 ### Acceptance Criteria
 
@@ -85,6 +85,20 @@ Before marking an item complete on the checklist MUST **stop** and **think**. Ha
 **THEN** a raw UPDATE or DELETE attempt on any committed row raises at the SQLite layer.
 
 ### Issues Encountered
+
+- The settled Ecto boundary forbids schemas and metadata crossing applications,
+  so the ticket's proposed `Court.Event` Ecto schema became a plain domain
+  value backed by private `Court.EventRecord` persistence.
+- Ecto does not autogenerate primitive `:integer` schema fields. The adapter
+  record uses Ecto's `:id` mapping while migration 0001 deliberately emits
+  plain `INTEGER PRIMARY KEY` (verified from `sqlite_master`, with no
+  `AUTOINCREMENT`) so the committed prefix remains gapless.
+- `ecto_sqlite3` defaults to an undeclared Jason module for JSON columns. To
+  preserve the ticket's dependency fence, `Court.JSON` implements the adapter
+  callback with OTP 29's built-in `:json` module instead of adding a package.
+- `Repo.transact/2` preserves tagged domain outcomes rather than wrapping them
+  a second time; an initial nested-result assumption was caught by the court
+  tests and removed.
 
 <!--
 The comments under the 'Issues Encountered' heading are the only comments you MUST not remove

@@ -7,5 +7,6 @@ defmodule Court.ApplicationTest do
 
     assert Process.alive?(Process.whereis(Court.Supervisor))
     assert Process.alive?(Process.whereis(Court.Repo))
+    assert Process.alive?(Process.whereis(Court.Writer))
   end
 end
