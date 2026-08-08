@@ -56,11 +56,11 @@ locale.
 Before marking an item complete on the checklist MUST **stop** and **think**. Have you validated all aspects are **implemented** and **tested**?
 </CRITICAL_RULE>
 
-- [ ] Cursor: durable checkpoint advancing only after rendered output is durable; killed mid-batch re-renders without duplication or gaps.
-- [ ] Renderer: pure function event-row → line; property test over envelope variants.
-- [ ] `projection_created` on build with producer, version, cursor; `projection_superseded` on rebuild.
-- [ ] Rebuild-from-zero equals incremental output byte-identically for the same prefix.
-- [ ] Full gate green at ticket tip.
+- [x] Cursor: durable checkpoint advancing only after rendered output is durable; killed mid-batch re-renders without duplication or gaps.
+- [x] Renderer: pure function event-row → line; property test over envelope variants.
+- [x] `projection_created` on build with producer, version, cursor; `projection_superseded` on rebuild.
+- [x] Rebuild-from-zero equals incremental output byte-identically for the same prefix.
+- [x] Full gate green at ticket tip.
 
 ### Acceptance Criteria
 
@@ -72,6 +72,23 @@ Before marking an item complete on the checklist MUST **stop** and **think**. Ha
 **THEN** killing the consumer mid-batch and restarting produces no duplicate and no missing lines.
 
 ### Issues Encountered
+
+- The round-1 ruling supersedes the ticket's rebuild wording: a
+  same-definition loss rebuilds and hash-verifies the registered explicit
+  prefix without emitting any event; only a definition change creates a new
+  descriptor and supersedes the prior one.
+- The projection file itself is the cursor. Startup truncates only an
+  incomplete suffix; a malformed complete line, gap, regression, or cursor
+  ahead of court is a typed integrity fault. No sidecar exists to disagree.
+- `projection_created` necessarily commits after the captured target prefix.
+  Tests assert its `event_seq` is greater than the descriptor cursor, removing
+  the registry self-reference that made the original ticket inconsistent.
+- The dependency fence precluded adding a property-testing package. Renderer
+  invariants are exercised over 128 generated envelope/payload variants plus
+  reordered-map and escaped-newline cases using only the standard test stack.
+- Actual supervised consumer kills are synchronized at partial-line-fsynced
+  and complete-line-fsynced checkpoints. Restart reads the file tail and
+  produces neither a duplicate nor a gap without sleep-based coordination.
 
 <!--
 The comments under the 'Issues Encountered' heading are the only comments you MUST not remove

@@ -9,3 +9,8 @@ config :court, Court.Artifacts,
   root:
     System.get_env("VAMPIRE_OTP_ARTIFACT_ROOT") ||
       Path.join(System.tmp_dir!(), "vampire_otp_prod_artifacts")
+
+config :runtime, Runtime.Projections.Logs,
+  path:
+    System.get_env("VAMPIRE_OTP_LOGS_PATH") ||
+      Path.join(System.tmp_dir!(), "vampire_otp_prod_logs.txt")

@@ -7,6 +7,7 @@ defmodule Runtime.ApplicationTest do
 
     assert Process.alive?(Process.whereis(Runtime.Supervisor))
     assert Process.alive?(Process.whereis(Runtime.Lifecycle))
+    assert Process.alive?(Process.whereis(Runtime.Projections.Logs))
     assert %Runtime.Lifecycle.Identity{} = Runtime.Lifecycle.identity()
   end
 end
