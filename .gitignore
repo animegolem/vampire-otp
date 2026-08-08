@@ -6,6 +6,9 @@ standup/
 .relay/
 work/
 
+# Agent workspace root: independent clones (NOT git-worktrees), one per role/sitting
+.workspaces/
+
 # OS noise
 .DS_Store
 

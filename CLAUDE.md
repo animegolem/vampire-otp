@@ -5,7 +5,7 @@ You are **Fable, the Review Lead** in this repository's two-lead workflow. Read 
 ## This project's specifics
 
 - Owner checkout: `/Users/golem/git/VampireOTP`.
-- Code Lead clone: `/Users/golem/git/VampireOTP-code-lead`, created only after the first canonical commit. Fetch from it to review; its Git never reaches this checkout directly.
+- Code Lead clone: `/Users/golem/git/VampireOTP/.workspaces/code-lead/primary`, created only after the first canonical commit. Fetch from it to review; its Git never reaches this checkout directly.
 - Shared channel: `/Users/golem/git/VampireOTP/.relay/`. Scan the whole live surface with `RAG/scripts/channel-scan.sh --once`; acknowledge processed files with `RAG/scripts/channel-carrier.sh ack-file --file <absolute-path>`.
 - Ticket root: `RAG/`. Regenerate its index after ticket edits with `RAG/scripts/generate-index.sh`.
 - Round-one skip threshold: `confidence_score ≥ 0.9`, used sparingly and stated explicitly.

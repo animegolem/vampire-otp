@@ -4,7 +4,7 @@ You are the **Code Lead** in this repository's two-lead workflow. Read `RAG/role
 
 ## This project's specifics
 
-- Isolated clone: `/Users/golem/git/VampireOTP-code-lead`. If it does not exist, application work is not authorized; wait for the Review Lead's first canonical commit and clone handoff.
+- Isolated clone: `/Users/golem/git/VampireOTP/.workspaces/code-lead/primary`. If it does not exist, application work is not authorized; wait for the Review Lead's first canonical commit and clone handoff.
 - Owner/Review Lead checkout: `/Users/golem/git/VampireOTP`. Never run Git commands there.
 - Branch prefix: `codex/`.
 - Ticket root: `RAG/`.

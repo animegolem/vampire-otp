@@ -24,7 +24,21 @@ required=(
   ".relay/PROTOCOL.md"
 )
 
+# Workspace-entry (clone) awareness: entries under .workspaces/ are
+# independent clones that intentionally lack the gitignored .relay channel
+# and host no nested clone of their own. Channel checks run canonical-side.
+IS_CLONE=0
+case "$ROOT_DIR" in */.workspaces/*) IS_CLONE=1 ;; esac
+if [[ $IS_CLONE -eq 1 ]]; then
+  common_dir="$(git -C "$ROOT_DIR" rev-parse --git-common-dir 2>/dev/null || true)"
+  case "$common_dir" in
+    .git|"$ROOT_DIR"/.git) ;;
+    *) echo "workspace clone: ERROR git common-dir escapes the entry ($common_dir)"; errors=$((errors + 1)) ;;
+  esac
+fi
+
 for path in "${required[@]}"; do
+  [[ $IS_CLONE -eq 1 && "$path" == .relay/* ]] && continue
   if [[ ! -f "$ROOT_DIR/$path" ]]; then
     echo "$path: ERROR required workflow file missing"
     errors=$((errors + 1))
@@ -33,6 +47,7 @@ done
 
 for directory in RAG/AI-EPIC RAG/AI-IMP RAG/AI-LOG RAG/BRIEFS \
                  .relay/inbox .relay/outbox .relay/archive; do
+  [[ $IS_CLONE -eq 1 && "$directory" == .relay/* ]] && continue
   if [[ ! -d "$ROOT_DIR/$directory" ]]; then
     echo "$directory: ERROR required workflow directory missing"
     errors=$((errors + 1))
@@ -74,8 +89,10 @@ if [[ ! -f "$ROOT_DIR/RAG/SPEC-VampOTP.md" ]]; then
   echo "SPEC-0001.md: NOTICE Review Lead/owner landing remains an implementation fence"
 fi
 
-if git -C "$ROOT_DIR" rev-parse --verify --quiet HEAD >/dev/null; then
-  if [[ ! -d /Users/golem/git/VampireOTP-code-lead/.git ]]; then
+if [[ $IS_CLONE -eq 1 ]]; then
+  : # a workspace entry hosts no nested clone; canonical-side check covers this
+elif git -C "$ROOT_DIR" rev-parse --verify --quiet HEAD >/dev/null; then
+  if [[ ! -d /Users/golem/git/VampireOTP/.workspaces/code-lead/primary/.git ]]; then
     echo "Code Lead clone: ERROR canonical history exists but isolated clone is missing"
     errors=$((errors + 1))
   fi
